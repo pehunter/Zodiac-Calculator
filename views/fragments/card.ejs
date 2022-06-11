@@ -1,0 +1,25 @@
+<div class="<%= isRequired ? "cardRequired card" : "card" %>">
+    <img class="cardCorner" src=<%= `images/${planet}.svg` %> alt=<%= planet %>>
+    <h3 class="cardTitle"><%= planet %></h3>
+    <img class="cardSign" src="images/Blank.svg" alt="">
+    <% if(isRequired) { %>
+        <select class="cardDropdown" required name=<%= planet.toLowerCase(); %> id=<%= planet.toLowerCase(); %> onchange="valueSelected(this)">
+            <option value="" selected disabled></option>
+    <% } else { %>
+        <select class="cardDropdown" name=<%= planet.toLowerCase(); %> id=<%= planet.toLowerCase(); %> onchange="valueSelected(this)">
+            <option value="" selected></option>
+    <% } %>
+        <option value="Aries">Aries</option>
+        <option value="Aquarius">Aquarius</option>
+        <option value="Pisces">Pisces</option>
+        <option value="Taurus">Taurus</option>
+        <option value="Gemini">Gemini</option>
+        <option value="Cancer">Cancer</option>
+        <option value="Leo">Leo</option>
+        <option value="Virgo">Virgo</option>
+        <option value="Libra">Libra</option>
+        <option value="Scorpio">Scorpio</option>
+        <option value="Sagittarius">Sagittarius</option>
+        <option value="Capricorn">Capricorn</option>
+    </select>
+</div>

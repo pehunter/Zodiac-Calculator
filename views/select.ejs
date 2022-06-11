@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Zodiac Birthday Calculator</title>
+</head>
+<body>
+    <%- include('fragments/topbar.ejs', {back: "/"}); %>
+    <main class="single">
+        <div class="content">
+            <form action="retrieve", method="GET">
+                <h5>Choose your signs</h5>
+                <h2 id="req" style="color: #C89DFF; margin-top: 2em">Required</h2>
+                <div class="cardContainer">
+                    <%- include('fragments/card.ejs', {color: "#C89DFF", planet: "Sun", isRequired: true}); %>
+                    <%- include('fragments/card.ejs', {color: "#C89DFF", planet: "Moon", isRequired: true}); %>
+                    <%- include('fragments/card.ejs', {color: "#C89DFF", planet: "Rising", isRequired: true}); %>
+                </div>
+                <h2 style="margin-top: 2em">Optional</h2>
+                <div class="cardContainer">
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Mercury", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Venus", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Mars", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Jupiter", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Saturn", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Uranus", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Neptune", isRequired: false}); %>
+                    <%- include('fragments/card.ejs', {color: "#FFFFFF", planet: "Pluto", isRequired: false}); %>
+                </div>
+
+                <button type="submit" value="View Dates" style="float: right;">View Dates</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        function valueSelected(selector) {
+            console.log(selector.parentNode.getElementsByClassName('cardSign')[0]);
+            var card = selector.parentNode;
+
+            var sign = card.getElementsByClassName('cardSign');
+            var sVal = selector.value;
+
+            if(sVal != "") {
+                card.style.borderColor = "#FFE99D";
+            } else {
+                if(selector.required) {
+                    card.style.borderColor = "#C89DFF";
+                } else {
+                    card.style.borderColor = "#FFFFFF";
+                }
+            }
+
+            var title = document.getElementById("req");
+            if(document.getElementById("sun").value != "" && document.getElementById("moon").value != "" && document.getElementById("rising").value != "") {
+                title.style.color = "#FFE99D";
+            } else {
+                title.style.color = "#C89DFF";
+            }
+
+            if(sVal == "") {
+                sVal = "Blank";
+            }
+            card.getElementsByClassName('cardSign')[0].src = "images/" + sVal + ".svg";
+            card.getElementsByClassName('cardSign')[0].alt = sVal;
+        }
+    </script>
+</body>
+</html>

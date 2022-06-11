@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Zodiac Birthday Calculator</title>
+</head>
+<body>
+    <%- include('fragments/topbar.ejs', {back: "/"}); %>
+    <main>
+        <div class="content">
+            <h1>Welcome</h1>
+            <h3>This website allows you to determine someone’s birthday <b>from their zodiac signs.</b></h3>
+            <h3>Even if you don’t have all the signs, a list of possible dates will still be provided.</h3>
+            <!-- <div>
+                <img src="images/Aries.svg" alt="Aries">
+                <img src="images/Aquarius.svg" alt="Aquarius">
+                <img src="images/Pisces.svg" alt="Pisces">
+                <img src="images/Taurus.svg" alt="Taurus">
+                <img src="images/Gemini.svg" alt="Gemini">
+                <img src="images/Cancer.svg" alt="Cancer">
+                <img src="images/Leo.svg" alt="Leo">
+                <img src="images/Virgo.svg" alt="Virgo">
+                <img src="images/Libra.svg" alt="Libra">
+                <img src="images/Scorpio.svg" alt="Scorpio">
+                <img src="images/Sagittarius.svg" alt="Sagittarius">
+                <img src="images/Capricorn.svg" alt="Capricorn">
+            </div> -->
+            <h3 class="whitetext">Click the button below to get started!</h3>
+            <button type="button" onclick="window.location.href = 'select'">Get Started</button>
+        </div>
+        <div class="background"></div>
+    </main>
+</body>
+</html>

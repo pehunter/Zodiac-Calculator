@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Zodiac Birthday Calculator</title>
+</head>
+<body>
+    <%- include('fragments/topbar.ejs', {back: "/select"}); %>
+    <main>
+        <div class="content">
+            <h2 style="margin-bottom: 1em">Results</h2>
+            <% if (data.length > 0) {%>
+                <table>
+                    <tr>
+                        <th>Month</th>
+                        <th>Day</th>
+                        <th>Year</th>
+                    </tr>
+                    <% var months = ['January','February','March','April','May','June','July','August','September','October','November','December'] %>
+                    <% data.forEach(element => { %>
+                        <% var month = months[element.date.getMonth()]; %>
+                        <% var day = element.date.getDate(); %>
+                        <% var daySuffix = "th"; %>
+                        <% if(day % 10 == 1 && day != 11) { %>
+                        <%       daySuffix = "st"; %>
+                        <% } else if(day % 10 == 2 && day != 12) { %>
+                        <%      daySuffix = "nd";    %>
+                        <% } %>
+                        <% var year = element.date.getFullYear(); %>
+                        <%- include('fragments/tableRow.ejs', {month: month, day: day + daySuffix, year: year}); %>
+                    <% }) %>
+                </table>
+            <% } else { %>
+                <h3 class="descriptive">No matching dates found.</h3>
+            <% } %>
+            <h3 class="descriptive" style="color: white; margin-top: 1.5em">Time Range</h3>
+            <h5 class="timetext">
+                <% var diff = rising - sun - 1; %>
+                <% //console.log(diff) %>
+                <% var baseDate = new Date(1,1,1,6 + 2*diff) %>
+                <% //console.log(baseDate.getHours()) %>
+                <% var time1 = baseDate.toLocaleTimeString('en-US') %>
+                <% time1 = time1.slice(0, time1.indexOf(':', 3)) + time1.slice(time1.indexOf(' ')); %>
+                <% baseDate.setHours(baseDate.getHours() + 2) %> 
+                <% var time2 = baseDate.toLocaleTimeString('en-US') %>
+                <% time2 = time2.slice(0, time2.indexOf(':', 3)) + time2.slice(time2.indexOf(' ')); %>
+                <%= `${time1} - ${time2}`; %> 
+            </h5>
+        </div>
+        <div class="content">
+            <h2 style="color: #C89DFF; margin-top: 2em">Recommended Signs</h2>
+            <div class="signContainer">
+                <% var map = ['mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto']; %>
+                <% var top3Data = new Array(3).fill(0); %>
+                <% var top3 = ['', '', '']; %>
+                <% map.forEach(property => { %>
+                    <% var signs = new Array(12).fill(0); %> 
+                    <% var count = -1; %>
+                    <% data.forEach(element => { %>
+                        <% if(signs[element[property]] == 0) { %>
+                            <% signs[element[property]] = 1;  %>
+                            <% count = count + 1;  %>
+                        <% } %>
+                    <% }) %>
+                    <% for(var i = 0; i < 3; i++) { %>
+                        <% if(top3Data[i] < count) {%>
+                            <% top3Data.splice(i,0,count); %>
+                            <% top3.splice(i,0,property); %>
+                            <% top3.pop(); %>
+                            <% top3Data.pop(); %>
+                            <% break; %>
+                        <% } %>
+                    <% } %>
+                <% }) %>
+                <% var signAdded = false %>
+                <% top3.forEach(sign => { %>
+                    <% if(sign != "") { %>
+                        <%- include('fragments/sugSign.ejs', {sign: sign}); %>
+                        <% signAdded = true %>
+                    <% } %>
+                <% }) %>
+            </div>
+
+                <h3 class="descriptive">
+                    <% if (signAdded) { %>
+                        Adding these signs will eliminiate the most dates from the list.
+                    <% } else { %>
+                        None.
+                    <% } %>
+                </h3>
+            <button type="button"  onclick="window.location.href = '/'">Restart</button>
+        </div>
+    </main>
+</body>
+</html>
