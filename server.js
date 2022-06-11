@@ -4,7 +4,7 @@ const dataFuncs = require('./controllers/dataController.js');
 
 //Setup server & EJS
 const app = express();
-app.listen(8888);
+app.listen(80);
 app.set('view engine', 'ejs');
 
 //Log all requests
